@@ -26,7 +26,9 @@ var number = ['0','1','2','3','4','5','6','7','8','9'];
 var specialChar = ['!','@','#','$','%']
 
 var password = [];
-var passwordCharacters = [];
+//var passwordCharacters = [];
+//var test = passwordCharacters.concat(lowercase, uppercase, number, specialChar);
+
 
 // Assignment code here
 
@@ -39,9 +41,9 @@ function generatePassword(event) {
   var promptLowercase = prompt("Would you like to use lowercase letters in the password? Enter 'yes' or 'no' to choose.");
     if (promptLowercase === 'yes' || promptLowercase === 'YES') {
       // giving a value of 1 if lowercase characters are utilized
-      var useLowercase = 1
+      var useLowercase = 'yes'
       // pushing lowercase characters into the passwordCharacters array to be used to create the final password
-      passwordCharacters.push(lowercase);
+      /*passwordCharacters.push.concat(lowercase);*/
       // creating a random index, so one lowercase character can be randomly put into the password; this is included to ensure that the password has at least one lowercase character 
       var randomIndexLowercase = Math.floor(Math.random() * number.length);
       // pushing one random lowercase character into the password array
@@ -54,9 +56,9 @@ function generatePassword(event) {
   var promptUppercase = prompt("Would you like to use UPPERCASE letters in the password? Enter 'yes' or 'no' to choose.");
     if (promptUppercase === 'yes' || promptUppercase === 'YES') {
       // giving a value of 1 if uppercase characters are utilized
-      var useUppercase = 1
+      var useUppercase = 'yes'
       // pushing uppercase characters into the passwordCharacters array to be used to create the final password
-      passwordCharacters.push(uppercase);
+      /*passwordCharacters.push.concat(uppercase);*/
       // creating a random index, so one uppercase character can be randomly put into the password; this is included to ensure that the password has at least one uppercase character 
       var randomIndexUppercase = Math.floor(Math.random() * number.length);
       // pushing one random uppercase character into the password array
@@ -68,9 +70,9 @@ function generatePassword(event) {
   var promptNumber = prompt("Would you like to use numbers in the password? Enter 'yes' or 'no' to choose.");
     if (promptNumber === 'yes' || promptNumber === 'YES') {
       // giving a numeric value of 1 if number characters are utilized
-      var useNumber = 1
+      var useNumber = 'yes'
       // pushing number characters into the passwordCharacters array to be used to create the final password
-      passwordCharacters.push(number);
+      /*passwordCharacters.push.concat(number);*/
       // creating a random index, so one number character can be randomly put into the password; this is included to ensure that the password has at least one number character 
       var randomIndexNumber = Math.floor(Math.random() * number.length);
       // pushing one random number character into the password array
@@ -83,9 +85,9 @@ function generatePassword(event) {
   var promptSpecialChar = prompt("Would you like to use special characters in the password? Enter 'yes' or 'no' to choose.");
     if (promptSpecialChar === 'yes' || promptSpecialChar === 'YES') {
       // giving a numeric value of 1 if special characters are utilized
-      var useSpecialChar = 1
+      var useSpecialChar = 'yes'
       // pushing special characters into the passwordCharacters array to be used to create the final password
-      passwordCharacters.push(specialChar);
+      /*passwordCharacters.push.concat(specialChar);*/
       // creating a random index, so one special character can be randomly put into the password; this is included to ensure that the password has at least one special character 
       var randomIndexSpecialChar = Math.floor(Math.random() * specialChar.length);
       // pushing one random special character into the password array
@@ -93,13 +95,42 @@ function generatePassword(event) {
        
     } else useSpecialChar = 0;
       // if the user does not want special characters, then 'useSpecialChar' is given a value of 0; this will be used when adding the remaining password characters
-
+      
+  var passwordCharacters = [];  
+      if (useUppercase === 'yes' && useLowercase === 'yes' && useNumber === 'yes' && useSpecialChar === 'yes') {
+        var charList = passwordCharacters.concat(uppercase, lowercase, number, specialChar);
+        console.log(charList);
+      }
     
     
       console.log('password', password);
-      console.log('password pool', passwordCharacters);
+      //console.log('password pool', passwordCharacters);
+      document.getElementById('password').value = password;
+      //alert('Your password is' + password);
 
+      //chosenCharacters()
 };
+
+
+// function chosenCharacters (useUppercase, useLowercase, useNumber, useSpecialChar) {
+//   if (useUppercase === 'yes' && useLowercase === 'yes' && useNumber === 'yes' && useSpecialChar === 'yes') {
+//     var charList = passwordCharacters.concat(uppercase, lowercase, number, specialChar);
+//   }
+//   else if (useLowercase === 0 && useLowercase === 1 && useNumber === 1 && useSpecialChar ===1) {
+//     passwordCharacters.concat(uppercase, lowercase, number, specialChar);
+//   }
+//   console.log(charList);
+// };
+
+// function printPassword (password) {
+  
+//   //var appendPassword = document.querySelector('#password');
+//   //appendPassword.append(password);
+//   document.getElementById('password').value = password;
+//   alert("Your password is " + password);
+// }
+
+
 
 // var password = generatePassword(event); {
 //   window.alert('Please provide answers that will be used to generate a password.');
