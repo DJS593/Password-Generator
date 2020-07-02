@@ -8,14 +8,14 @@ const uppercase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','
 const number = ['0','1','2','3','4','5','6','7','8','9'];
 const specialChar = ['!','@','#','$','%','&','*'];
 
-//let charCount = '';
+
 let startPassword = '';
 let charUsed = '';  
 let charTypeCount = 0; 
 let password = [];
 
 
-// Assignment code here
+// beginPassword() prompts user to select desired length and characters.  It will then pick one character from each selected character type.  The remaining characters are added in generatePassword().  
 
 function beginPassword(event) {
   
@@ -29,7 +29,7 @@ function beginPassword(event) {
     var promptLowercase = prompt("Would you like to include lowercase letters in the password? Enter 'yes' or 'no' to choose.");
       
     // if the user selected lowercase, then add lowercase to the char list (charUsed)
-    if(promptLowercase === 'yes') {
+      if(promptLowercase === 'yes') {
         charUsed += lowercase;
         charTypeCount += 1;
        
@@ -43,7 +43,7 @@ function beginPassword(event) {
     // prompt to use uppercase characters  
     var promptUppercase = prompt("Would you like to use UPPERCASE letters in the password? Enter 'yes' or 'no' to choose.");
       
-      
+      // if the user selected uppercase, then add uppercase to the char list (charUsed)
       if(promptUppercase === 'yes') {
         charUsed += uppercase;
         charTypeCount += 1;
@@ -57,6 +57,8 @@ function beginPassword(event) {
    
     // prompt to use number characters
     var promptNumber = prompt("Would you like to use numbers in the password? Enter 'yes' or 'no' to choose.");
+      
+      // if the user selected number, then add number to the char list (charUsed)
       if(promptNumber === 'yes') {
         charUsed += number;
         charTypeCount += 1;
@@ -71,6 +73,8 @@ function beginPassword(event) {
     
     // prompt to use special characters
     var promptSpecialChar = prompt("Would you like to use special characters in the password? Enter 'yes' or 'no' to choose.");
+      
+      // if the user selected special character, then add special char to the char list (charUsed)
       if(promptSpecialChar === 'yes') {
         charUsed += specialChar;
         charTypeCount += 1;
@@ -89,9 +93,8 @@ function beginPassword(event) {
   if (promptUppercase !== 'yes' && promptLowercase !== 'yes' && promptNumber !== 'yes' && promptSpecialChar !== 'yes') {
     window.alert('At least one character type must be chosen.  Please try again!');
     
-    // if the user has not picked at least on character type, the process will stop
     return;
-    //beginPassword();
+    
   } else {
     
     // inititate generatePassword() and pass the needed information
@@ -113,17 +116,12 @@ function generatePassword(promptPasswordLength, startPassword, charUsed, charTyp
   }
   
   // combine the password components
-
   finalPassword = startPassword + remainingPassword;
   
   // append the password to the textarea
   document.getElementById('password').append(finalPassword);
-  
-
 };  
   
 
 // button click initiates the beginPassword();
 generateBtn.addEventListener("click", beginPassword);
-
-
