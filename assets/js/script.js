@@ -1,15 +1,18 @@
 
 // global variables
 
-var generateBtn = document.querySelector("#generate");
-var lowercase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-var uppercase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-var number = ['0','1','2','3','4','5','6','7','8','9'];
-var specialChar = ['!','@','#','$','%'];
+const generateBtn = document.querySelector("#generate");
 
-var charCount = '';
-var startPassword = '';
-var charUsed = '';
+const lowercase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+const uppercase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+const number = ['0','1','2','3','4','5','6','7','8','9'];
+const specialChar = ['!','@','#','$','%'];
+
+let charCount = '';
+let startPassword = '';
+let charUsed = '';  
+let charTypeCount = 0; 
+
 
 // Assignment code here
 
@@ -23,10 +26,11 @@ function beginPassword(event) {
   if (promptPasswordLength >= 8 && promptPasswordLength <= 128) {
   
     // prompt to use lowercase characters
-    var promptLowercase = prompt("Would you like to include lowercase letters in the password? Enter 'yes' or 'no to choose.");
+    var promptLowercase = prompt("Would you like to include lowercase letters in the password? Enter 'yes' or 'no' to choose.");
       if(promptLowercase === 'yes') {
         charUsed += lowercase;
         console.log(charUsed);
+        charTypeCount += 1;
        
         for(var i=0; i < 1; i++ )
         {  
@@ -40,6 +44,7 @@ function beginPassword(event) {
       if(promptUppercase === 'yes') {
         charUsed += uppercase;
         console.log(charUsed);
+        charTypeCount += 1;
 
         for(var i=0; i < 1; i++ )
         {  
@@ -53,6 +58,7 @@ function beginPassword(event) {
       if(promptNumber === 'yes') {
         charUsed += number;
         console.log(charUsed);
+        charTypeCount += 1;
 
         for(var i=0; i < 1; i++ )
         {  
@@ -66,7 +72,10 @@ function beginPassword(event) {
     var promptSpecialChar = prompt("Would you like to use special characters in the password? Enter 'yes' or 'no' to choose.");
       if(promptSpecialChar === 'yes') {
         charUsed += specialChar;
+        console.log('final list', charUsed);
         console.log(charUsed);
+        charTypeCount += 1;
+        console.log('final question', charTypeCount);
 
         for(var i=0; i < 1; i++ )
         {  
@@ -84,72 +93,46 @@ function beginPassword(event) {
     window.alert('At least one character type must be chosen.  Please try again!');
     beginPassword();
   } else {
-    generatePassword(promptLowercase, promptUppercase, promptNumber, promptSpecialChar, promptPasswordLength, startPassword, charUsed);
+    
+    generatePassword(promptPasswordLength, startPassword, charUsed, charTypeCount);
   }
-  
+ 
 };  
- // need to remove the  
 
-function generatePassword(promptLowercase, promptUppercase, promptNumber, promptSpecialChar, promptPasswordLength, startPassword, charUsed) {
+
+
+function generatePassword(promptPasswordLength, startPassword, charUsed, charTypeCount) {
   var remainingPassword = '';
   var finalPassword = '';
-  
-
+  console.log('check that data was passed')
+  console.log(charUsed);
+  console.log(promptPasswordLength);
+  console.log(startPassword);
+  console.log(charTypeCount);
   // need to change absolute number with variable
-  for (var i = 0; i < promptPasswordLength - 4; i++) {
-    remainingPassword += charUsed[Math.floor(Math.random() * charUsed.length)];
+  var adjCharUsed = charUsed.split(',');
+  console.log('character list less comma', adjCharUsed);
+  
+  for (var i = 0; i < promptPasswordLength - charTypeCount; i++) {
+    remainingPassword += adjCharUsed[Math.floor(Math.random() * adjCharUsed.length)];
   }
   console.log(remainingPassword);
   finalPassword = startPassword + remainingPassword;
-  console.log(finalPassword);
+  //randomFinalPassword = finalPassword.sort();
+
+  console.log('finalPassword', finalPassword);
+  //console.log('randomFinalPassword', randomFinalPassword);
+
+  printPassword(finalPassword);
 
 };  
   
-function randomPassword(promptPasswordLength, finalPassword) {
 
-  //newFinalPassword = finalPassword
+function printPassword(finalPassword) {
 
-  for (var i = 0; i < promptPasswordLength; i++) {
-    randomPassword = finalPassword[Math.floor(Math.random() * finalPassword)];
-    console.log(randomPassword);
-  }
+  document.getElementById('password').append(finalPassword);
+}
 
-
-  //startPassword = startPassword + specialChar[(Math.floor(Math.random() * specialChar.length))];
-
-  // if(promptUppercase === 'yes' && promptLowercase === 'yes' && promptNumber === 'yes' && promptSpecialChar === 'yes') {
-  //   let passwordArray = lowercase.concat(uppercase).concat(number).concat(specialChar);
-  //   console.log(passwordArray);
-
-  //   for(var i = 0; i < promptPasswordLength; i++) {
-  //     password = password + passwordArray[Math.floor(Math.random() * Math.floor(passwordArray.length - 1))];
-  //   }
-  //   console.log(password);
-    
-  // }
-  // else if(!promptUppercase === 'yes' && promptLowercase === 'yes' && promptNumber === 'yes' && promptSpecialChar === 'yes') {
-  //   let passwordArray = lowercase.concat(uppercase).concat(number).concat(specialChar);
-  //   console.log(passwordArray);
-
-  //   for(var i = 0; i < promptPasswordLength; i++) {
-  //     password = password + passwordArray[Math.floor(Math.random() * Math.floor(passwordArray.length - 1))];
-  //   }    
-  // }
-
-};
-  
-  
-// function makeid(l)
-// {
-// var text = "";
-// var char_list = "abcdefghijklmnopqrstuvwxyz";
-// for(var i=0; i < l; i++ )
-// {  
-// text += char_list.charAt(Math.floor(Math.random() * char_list.length));
-// }
-// return text;
-// }
-// console.log(makeid(1));
 
 
 generateBtn.addEventListener("click", beginPassword);
